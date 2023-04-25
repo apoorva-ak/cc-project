@@ -6,10 +6,10 @@ from flask_mysqldb import MySQL
 app = Flask(__name__)
 app.secret_key = 'many random bytes'
 
-app.config['MYSQL_HOST'] = 'localhost'
-app.config['MYSQL_USER'] = 'crud'
+app.config['MYSQL_HOST'] = 'database-1.cyph4ivggggc.eu-north-1.rds.amazonaws.com'
+app.config['MYSQL_USER'] = 'admin'
 app.config['MYSQL_PASSWORD'] = 'password'
-app.config['MYSQL_DB'] = 'crud'
+app.config['MYSQL_DB'] = 'students'
 
 mysql = MySQL(app)
 
@@ -58,7 +58,7 @@ def update():
         UPDATE students SET name=%s, email=%s, phone=%s
         WHERE id=%s
         """, (name, email, phone, id_data))
-        
+        mysql.connection.commit()
         flash("Data Updated Successfully")
         return redirect(url_for('Index'))
 
